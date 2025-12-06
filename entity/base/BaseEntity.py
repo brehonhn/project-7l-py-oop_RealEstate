@@ -8,7 +8,7 @@ class BaseEntity(ABC,metaclass=AutoReprStrMeta):
     __str_fields__ = ("id",)
 
     _id = 0
-    objects_list = list()
+    objects_list = None
 
     def __init__(self):
         self._id = self.generate_id()
@@ -21,6 +21,8 @@ class BaseEntity(ABC,metaclass=AutoReprStrMeta):
 
     @classmethod
     def store(cls, obj):
+        if cls.objects_list is None:
+            cls.objects_list = list()
         cls.objects_list.append(obj)
 
     @property
